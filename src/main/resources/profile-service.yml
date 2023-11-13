@@ -1,0 +1,137 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Profile Service openapi
+  license:
+    name: MIT
+paths:
+  /students:
+    get:
+      summary: List all students
+      operationId: listStudents
+      tags:
+        - students
+      responses:
+        '200':
+          description: Array of students
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Students"
+    post:
+      summary: Create a student entity
+      operationId: createStudent
+      tags:
+        - students
+      requestBody:
+        description: The desired value of a new student
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StudentCreateDto"
+      responses:
+        '201':
+          description: Null response
+          headers:
+            location:
+              description: A link to the student entity
+              schema:
+                type: string
+  /students/{studentId}:
+    get:
+      summary: Info for a specific student
+      operationId: getStudentById
+      tags:
+        - students
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          description: The id of the student to retrieve
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Student"
+    put:
+      summary: Update a specific student
+      operationId: updateStudent
+      tags:
+        - students
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          description: The id of the student to retrieve
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: The desired updated value of student
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StudentCreateDto"
+      responses:
+        '200':
+          description: Updated student
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Student"
+
+    delete:
+      summary: Delete a student entity
+      operationId: deleteStudent
+      tags:
+        - students
+
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          description: The id of the student to retrieve
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Null response
+components:
+  schemas:
+    StudentCreateDto:
+      type: object
+      required:
+        - name
+        - emailAddress
+      properties:
+        name:
+          type: string
+        emailAddress:
+          type: string
+    Student:
+      type: object
+      required:
+        - id
+        - name
+        - emailAddress
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        emailAddress:
+          type: string
+    Students:
+      type: array
+      maxItems: 100
+      items:
+        $ref: "#/components/schemas/Student"
