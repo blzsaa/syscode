@@ -1,0 +1,47 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Address Service openapi
+  license:
+    name: MIT
+paths:
+  /addresses/{addressId}:
+    get:
+      summary: Info for a specific address
+      operationId: getAddressById
+      tags:
+        - addresses
+      parameters:
+        - name: addressId
+          in: path
+          required: true
+          description: The id of the address to retrieve
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Address"
+security:
+  - basicAuth: []
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+  schemas:
+    Address:
+      type: object
+      required:
+        - id
+        - address
+      properties:
+        id:
+          type: string
+          format: uuid
+        address:
+          type: string
