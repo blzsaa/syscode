@@ -1,6 +1,8 @@
 package hu.blzsaa.syscodeprofileservice.student;
 
 import hu.blzsaa.syscodeprofileservice.model.Student;
+import hu.blzsaa.syscodeprofileservice.model.StudentCreateDto;
+import java.net.URI;
 import java.util.UUID;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +20,11 @@ class StudentService {
 
 	public Student getStudentById(UUID studentId) {
 		return studentRepository.findById(studentId).map(studentMapper::map).orElseThrow();
+	}
+
+	public Student createStudent(StudentCreateDto studentCreateDto) {
+		StudentEntity student = studentMapper.map(studentCreateDto);
+		return studentMapper.map(studentRepository.save(student));
 	}
 
 }
