@@ -29,4 +29,10 @@ public class StudentsApiDelegateImpl implements StudentsApiDelegate {
 			.build();
 	}
 
+	@Override
+	public ResponseEntity<Void> deleteStudent(UUID studentId) {
+		studentService.deleteStudent(studentId);
+		return ResponseEntity.noContent().build();
+	}
+
 }

@@ -3,7 +3,7 @@ package hu.blzsaa.syscodeprofileservice.student;
 import static hu.blzsaa.syscodeprofileservice.student.TestUtils.STUDENT;
 import static hu.blzsaa.syscodeprofileservice.student.TestUtils.STUDENT_CREATE_DTO;
 import static hu.blzsaa.syscodeprofileservice.student.TestUtils.STUDENT_ENTITY;
-import static hu.blzsaa.syscodeprofileservice.student.TestUtils.UUID_1;
+import static hu.blzsaa.syscodeprofileservice.student.TestUtils.STUDENT_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
@@ -34,10 +34,10 @@ class StudentServiceTest {
 	void getStudentByIdShouldCallRepositoryAndMapTheResultToStudent() {
 		// given
 		doReturn(STUDENT).when(studentMapper).map(STUDENT_ENTITY);
-		doReturn(Optional.of(STUDENT_ENTITY)).when(repository).findById(UUID_1);
+		doReturn(Optional.of(STUDENT_ENTITY)).when(repository).findById(STUDENT_ID);
 
 		// when
-		var actual = underTest.getStudentById(UUID_1);
+		var actual = underTest.getStudentById(STUDENT_ID);
 
 		// then
 		assertThat(actual).isEqualTo(STUDENT);
@@ -56,6 +56,15 @@ class StudentServiceTest {
 		// then
 		assertThat(actual).isEqualTo(STUDENT);
 		verify(repository).save(STUDENT_ENTITY);
+	}
+
+	@Test
+	void deleteStudentShouldDeleteFromDb() {
+		// when
+		underTest.deleteStudent(STUDENT_ID);
+
+		// then
+		verify(repository).deleteById(STUDENT_ID);
 	}
 
 }

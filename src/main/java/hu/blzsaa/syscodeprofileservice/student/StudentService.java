@@ -27,4 +27,8 @@ class StudentService {
 		return studentMapper.map(studentRepository.save(student));
 	}
 
+	public void deleteStudent(UUID studentId) {
+		studentRepository.deleteById(studentId);
+	}
+
 }

@@ -102,8 +102,8 @@ paths:
             type: string
             format: uuid
       responses:
-        '200':
-          description: Null response
+        '203':
+          description: No content
 components:
   schemas:
     StudentCreateDto:

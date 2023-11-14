@@ -46,4 +46,19 @@ class ProfileServiceIT {
 			.statusCode(200);
 	}
 
+	@Test
+	void deleteStudentShouldDeleteFromToDb() {
+		// given
+		Response post = RestAssured.given().contentType(ContentType.JSON).body("""
+				{"name":"student-name2", "emailAddress":"email-address2"}
+				""").post("/students");
+		String location = post.header("Location");
+
+		// when
+		RestAssured.delete(location).then().statusCode(204);
+
+		// then
+		RestAssured.get(location).then().statusCode(500);
+	}
+
 }
