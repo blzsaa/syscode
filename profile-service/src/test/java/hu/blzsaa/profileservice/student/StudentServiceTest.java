@@ -1,11 +1,11 @@
-package hu.blzsaa.syscodeprofileservice.student;
+package hu.blzsaa.profileservice.student;
 
-import static hu.blzsaa.syscodeprofileservice.student.TestUtils.STUDENT;
-import static hu.blzsaa.syscodeprofileservice.student.TestUtils.STUDENT_2;
-import static hu.blzsaa.syscodeprofileservice.student.TestUtils.STUDENT_CREATE_DTO;
-import static hu.blzsaa.syscodeprofileservice.student.TestUtils.STUDENT_ENTITY;
-import static hu.blzsaa.syscodeprofileservice.student.TestUtils.STUDENT_ENTITY_2;
-import static hu.blzsaa.syscodeprofileservice.student.TestUtils.STUDENT_ID;
+import static hu.blzsaa.profileservice.student.TestUtils.STUDENT;
+import static hu.blzsaa.profileservice.student.TestUtils.STUDENT_2;
+import static hu.blzsaa.profileservice.student.TestUtils.STUDENT_CREATE_DTO;
+import static hu.blzsaa.profileservice.student.TestUtils.STUDENT_ENTITY;
+import static hu.blzsaa.profileservice.student.TestUtils.STUDENT_ENTITY_2;
+import static hu.blzsaa.profileservice.student.TestUtils.STUDENT_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;

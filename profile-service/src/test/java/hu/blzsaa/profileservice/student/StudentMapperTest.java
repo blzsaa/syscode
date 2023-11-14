@@ -1,10 +1,10 @@
-package hu.blzsaa.syscodeprofileservice.student;
+package hu.blzsaa.profileservice.student;
 
-import static hu.blzsaa.syscodeprofileservice.student.TestUtils.STUDENT_ID;
+import static hu.blzsaa.profileservice.student.TestUtils.STUDENT_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import hu.blzsaa.syscodeprofileservice.model.Student;
-import hu.blzsaa.syscodeprofileservice.model.StudentCreateDto;
+import hu.blzsaa.profileservice.model.Student;
+import hu.blzsaa.profileservice.model.StudentCreateDto;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

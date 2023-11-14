@@ -1,4 +1,4 @@
-package hu.blzsaa.syscodeprofileservice.student;
+package hu.blzsaa.profileservice.student;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

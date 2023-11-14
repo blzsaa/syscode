@@ -1,11 +1,11 @@
-package hu.blzsaa.syscodeprofileservice;
+package hu.blzsaa.profileservice;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
-import hu.blzsaa.syscodeprofileservice.student.StudentEntity;
-import hu.blzsaa.syscodeprofileservice.student.StudentRepository;
+import hu.blzsaa.profileservice.student.StudentEntity;
+import hu.blzsaa.profileservice.student.StudentRepository;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;

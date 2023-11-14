@@ -1,7 +1,7 @@
-package hu.blzsaa.syscodeprofileservice.student;
+package hu.blzsaa.profileservice.student;
 
-import hu.blzsaa.syscodeprofileservice.model.Student;
-import hu.blzsaa.syscodeprofileservice.model.StudentCreateDto;
+import hu.blzsaa.profileservice.model.Student;
+import hu.blzsaa.profileservice.model.StudentCreateDto;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.stereotype.Component;

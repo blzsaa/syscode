@@ -1,8 +1,8 @@
-package hu.blzsaa.syscodeprofileservice.student;
+package hu.blzsaa.profileservice.student;
 
-import hu.blzsaa.syscodeprofileservice.api.StudentsApiDelegate;
-import hu.blzsaa.syscodeprofileservice.model.Student;
-import hu.blzsaa.syscodeprofileservice.model.StudentCreateDto;
+import hu.blzsaa.profileservice.api.StudentsApiDelegate;
+import hu.blzsaa.profileservice.model.Student;
+import hu.blzsaa.profileservice.model.StudentCreateDto;
 import java.net.URI;
 import java.util.List;
 import java.util.UUID;

@@ -1,9 +1,9 @@
-package hu.blzsaa.syscodeprofileservice.student;
+package hu.blzsaa.profileservice.student;
 
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
-import hu.blzsaa.syscodeprofileservice.model.Student;
-import hu.blzsaa.syscodeprofileservice.model.StudentCreateDto;
+import hu.blzsaa.profileservice.model.Student;
+import hu.blzsaa.profileservice.model.StudentCreateDto;
 import java.util.UUID;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
