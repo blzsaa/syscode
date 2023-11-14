@@ -2,7 +2,7 @@
 A feladat két CRUD microservice készítése Spring framework, és legalább Java 11 használatával
 
 ## profile service:
-- Legyen egy Student enƟtás, aminek három mezője van: id, név, email cím
+- Legyen egy Student entitás, aminek három mezője van: id, név, email cím
 - Az id legyen UUID formátumú, a másik két mező sztring
 - Legyen négy REST végpont:
   - listázás
@@ -29,7 +29,7 @@ address
 - Legyen benne logolás
 - A forráskódot Github-ra kell feltölteni
 - A forráskódot Maven-nel lehessen buildelni
-  AjánloƩ technológiák
+## Ajánlott technológiák
   ezeket nem szükséges használni a megoldásban, lehet más módon is:
 - OpenAPI 3.0 (a service-ek közöƫ contractokhoz)
 - Lombok
