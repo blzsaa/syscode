@@ -93,4 +93,27 @@ class ProfileServiceIT {
 			.statusCode(200);
 	}
 
+	@Test
+	void updateStudentShouldUpdateStudentInDb() {
+		// given
+		Response createStudentResponse = RestAssured.given().contentType(ContentType.JSON).body("""
+				{"name":"student-name2", "emailAddress":"email-address2"}
+				""").post("/students");
+		String location = createStudentResponse.header("Location");
+
+		// when + then
+		RestAssured.given()
+			.contentType(ContentType.JSON)
+			.body("""
+					{"name":"student-name3", "emailAddress":"email-address3"}
+					""")
+			.put(location)
+			.then()
+			.statusCode(200)
+			.body("name", is("student-name3"))
+			.body("id", Matchers.notNullValue())
+			.body("emailAddress", is("email-address3"))
+			.statusCode(200);
+	}
+
 }

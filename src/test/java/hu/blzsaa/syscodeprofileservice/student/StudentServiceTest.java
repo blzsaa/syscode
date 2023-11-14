@@ -36,7 +36,7 @@ class StudentServiceTest {
 	@Test
 	void getStudentByIdShouldCallRepositoryAndMapTheResultToStudent() {
 		// given
-		doReturn(STUDENT).when(studentMapper).map(STUDENT_ENTITY);
+		doReturn(STUDENT).when(studentMapper).mapEntityToDto(STUDENT_ENTITY);
 		doReturn(Optional.of(STUDENT_ENTITY)).when(repository).findById(STUDENT_ID);
 
 		// when
@@ -49,9 +49,9 @@ class StudentServiceTest {
 	@Test
 	void createStudentShouldSaveToDbAndReturnWithSavedValueAsDto() {
 		// given
-		doReturn(STUDENT_ENTITY).when(studentMapper).map(STUDENT_CREATE_DTO);
+		doReturn(STUDENT_ENTITY).when(studentMapper).mapCreateDtoToEntity(STUDENT_CREATE_DTO);
 		doReturn(STUDENT_ENTITY).when(repository).save(STUDENT_ENTITY);
-		doReturn(STUDENT).when(studentMapper).map(STUDENT_ENTITY);
+		doReturn(STUDENT).when(studentMapper).mapEntityToDto(STUDENT_ENTITY);
 
 		// when
 		var actual = underTest.createStudent(STUDENT_CREATE_DTO);
@@ -73,8 +73,8 @@ class StudentServiceTest {
 	@Test
 	void listStudentsShouldCallRepositoryAndMapTheResultToStudent() {
 		// given
-		doReturn(STUDENT).when(studentMapper).map(STUDENT_ENTITY);
-		doReturn(STUDENT_2).when(studentMapper).map(STUDENT_ENTITY_2);
+		doReturn(STUDENT).when(studentMapper).mapEntityToDto(STUDENT_ENTITY);
+		doReturn(STUDENT_2).when(studentMapper).mapEntityToDto(STUDENT_ENTITY_2);
 		doReturn(List.of(STUDENT_ENTITY, STUDENT_ENTITY_2)).when(repository).findAll();
 
 		// when
@@ -82,6 +82,21 @@ class StudentServiceTest {
 
 		// then
 		assertThat(actual).containsOnly(STUDENT, STUDENT_2);
+	}
+
+	@Test
+	void updateStudentShouldSaveToDbTheNewValueAndReturnWithSavedValueAsDto() {
+		// given
+		doReturn(STUDENT_ENTITY).when(studentMapper).mapCreateDtoAndIdToEntity(STUDENT_ID, STUDENT_CREATE_DTO);
+		doReturn(STUDENT_ENTITY).when(repository).save(STUDENT_ENTITY);
+		doReturn(STUDENT).when(studentMapper).mapEntityToDto(STUDENT_ENTITY);
+
+		// when
+		var actual = underTest.updateStudent(STUDENT_ID, STUDENT_CREATE_DTO);
+
+		// then
+		assertThat(actual).isEqualTo(STUDENT);
+		verify(repository).save(STUDENT_ENTITY);
 	}
 
 }

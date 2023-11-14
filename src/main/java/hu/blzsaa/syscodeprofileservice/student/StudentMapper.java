@@ -4,13 +4,18 @@ import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
 import hu.blzsaa.syscodeprofileservice.model.Student;
 import hu.blzsaa.syscodeprofileservice.model.StudentCreateDto;
+import java.util.UUID;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = SPRING)
 interface StudentMapper {
 
-	Student map(StudentEntity studentEntity);
+	Student mapEntityToDto(StudentEntity studentEntity);
 
-	StudentEntity map(StudentCreateDto studentCreateDto);
+	StudentEntity mapCreateDtoToEntity(StudentCreateDto studentCreateDto);
+
+	@Mapping(target = "id", source = "studentId")
+	StudentEntity mapCreateDtoAndIdToEntity(UUID studentId, StudentCreateDto studentCreateDto);
 
 }

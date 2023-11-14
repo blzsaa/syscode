@@ -2,10 +2,8 @@ package hu.blzsaa.syscodeprofileservice.student;
 
 import hu.blzsaa.syscodeprofileservice.model.Student;
 import hu.blzsaa.syscodeprofileservice.model.StudentCreateDto;
-import java.net.URI;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,12 +19,12 @@ class StudentService {
 	}
 
 	public Student getStudentById(UUID studentId) {
-		return studentRepository.findById(studentId).map(studentMapper::map).orElseThrow();
+		return studentRepository.findById(studentId).map(studentMapper::mapEntityToDto).orElseThrow();
 	}
 
 	public Student createStudent(StudentCreateDto studentCreateDto) {
-		StudentEntity student = studentMapper.map(studentCreateDto);
-		return studentMapper.map(studentRepository.save(student));
+		StudentEntity student = studentMapper.mapCreateDtoToEntity(studentCreateDto);
+		return studentMapper.mapEntityToDto(studentRepository.save(student));
 	}
 
 	public void deleteStudent(UUID studentId) {
@@ -34,7 +32,13 @@ class StudentService {
 	}
 
 	public List<Student> listStudents() {
-		return studentRepository.findAll().stream().map(studentMapper::map).toList();
+		return studentRepository.findAll().stream().map(studentMapper::mapEntityToDto).toList();
+	}
+
+	public Student updateStudent(UUID studentId, StudentCreateDto newValues) {
+		StudentEntity toSave = studentMapper.mapCreateDtoAndIdToEntity(studentId, newValues);
+		StudentEntity saved = studentRepository.save(toSave);
+		return studentMapper.mapEntityToDto(saved);
 	}
 
 }

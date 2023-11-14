@@ -1,9 +1,10 @@
 package hu.blzsaa.syscodeprofileservice.student;
 
+import static hu.blzsaa.syscodeprofileservice.student.TestUtils.STUDENT_ID;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import hu.blzsaa.syscodeprofileservice.model.Student;
+import hu.blzsaa.syscodeprofileservice.model.StudentCreateDto;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,16 +19,39 @@ class StudentMapperTest {
 	}
 
 	@Test
-	void mapShouldMappAllFieldOfTheEntityToTheDto() {
+	void mapEntityToDtoShouldMapAllFields() {
 		// given
-		UUID uuid = UUID.randomUUID();
-		StudentEntity studentEntity = new StudentEntity(uuid, "name", "emailAddress");
+		StudentEntity studentEntity = new StudentEntity(STUDENT_ID, "name", "emailAddress");
 
 		// when
-		var actual = underTest.map(studentEntity);
+		var actual = underTest.mapEntityToDto(studentEntity);
 
 		// then
-		assertThat(actual).isEqualTo(new Student(uuid, "name", "emailAddress"));
+		assertThat(actual).isEqualTo(new Student(STUDENT_ID, "name", "emailAddress"));
+	}
+
+	@Test
+	void mapCreateDtoToEntityShouldMapAllFields() {
+		// given
+		StudentCreateDto studentCreateDto = new StudentCreateDto("name", "emailAddress");
+
+		// when
+		var actual = underTest.mapCreateDtoToEntity(studentCreateDto);
+
+		// then
+		assertThat(actual).usingRecursiveComparison().isEqualTo(new StudentEntity(null, "name", "emailAddress"));
+	}
+
+	@Test
+	void mapCreateDtoAndIdToEntityShouldMapAllFields() {
+		// given
+		StudentCreateDto studentCreateDto = new StudentCreateDto("name", "emailAddress");
+
+		// when
+		var actual = underTest.mapCreateDtoAndIdToEntity(STUDENT_ID, studentCreateDto);
+
+		// then
+		assertThat(actual).isEqualTo(new StudentEntity(STUDENT_ID, "name", "emailAddress"));
 	}
 
 }

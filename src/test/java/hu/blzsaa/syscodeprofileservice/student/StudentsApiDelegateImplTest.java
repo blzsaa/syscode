@@ -75,4 +75,16 @@ class StudentsApiDelegateImplTest {
 		assertThat(actual).isEqualTo(ResponseEntity.ok(List.of(STUDENT, STUDENT_2)));
 	}
 
+	@Test
+	void updateStudentShouldDelegateToTheService() {
+		// given
+		doReturn(STUDENT).when(studentService).updateStudent(STUDENT_ID, STUDENT_CREATE_DTO);
+
+		// when
+		var actual = underTest.updateStudent(STUDENT_ID, STUDENT_CREATE_DTO);
+
+		// then
+		assertThat(actual).isEqualTo(ResponseEntity.ok(STUDENT));
+	}
+
 }

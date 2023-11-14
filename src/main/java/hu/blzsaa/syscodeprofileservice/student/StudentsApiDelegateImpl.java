@@ -41,4 +41,9 @@ public class StudentsApiDelegateImpl implements StudentsApiDelegate {
 		return ResponseEntity.ok(studentService.listStudents());
 	}
 
+	@Override
+	public ResponseEntity<Student> updateStudent(UUID studentId, StudentCreateDto studentCreateDto) {
+		return ResponseEntity.ok(studentService.updateStudent(studentId, studentCreateDto));
+	}
+
 }
