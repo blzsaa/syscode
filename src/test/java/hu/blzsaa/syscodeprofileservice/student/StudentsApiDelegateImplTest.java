@@ -1,6 +1,7 @@
 package hu.blzsaa.syscodeprofileservice.student;
 
 import static hu.blzsaa.syscodeprofileservice.student.TestUtils.STUDENT;
+import static hu.blzsaa.syscodeprofileservice.student.TestUtils.STUDENT_2;
 import static hu.blzsaa.syscodeprofileservice.student.TestUtils.STUDENT_CREATE_DTO;
 import static hu.blzsaa.syscodeprofileservice.student.TestUtils.STUDENT_ID;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -8,6 +9,7 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
 import java.net.URI;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -59,6 +61,18 @@ class StudentsApiDelegateImplTest {
 		// then
 		assertThat(actual).isEqualTo(ResponseEntity.noContent().build());
 		verify(studentService).deleteStudent(STUDENT_ID);
+	}
+
+	@Test
+	void listStudentsShouldDelegateToTheService() {
+		// given
+		doReturn(List.of(STUDENT, STUDENT_2)).when(studentService).listStudents();
+
+		// when
+		var actual = underTest.listStudents();
+
+		// then
+		assertThat(actual).isEqualTo(ResponseEntity.ok(List.of(STUDENT, STUDENT_2)));
 	}
 
 }

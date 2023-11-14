@@ -4,6 +4,7 @@ import hu.blzsaa.syscodeprofileservice.api.StudentsApiDelegate;
 import hu.blzsaa.syscodeprofileservice.model.Student;
 import hu.blzsaa.syscodeprofileservice.model.StudentCreateDto;
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,11 @@ public class StudentsApiDelegateImpl implements StudentsApiDelegate {
 	public ResponseEntity<Void> deleteStudent(UUID studentId) {
 		studentService.deleteStudent(studentId);
 		return ResponseEntity.noContent().build();
+	}
+
+	@Override
+	public ResponseEntity<List<Student>> listStudents() {
+		return ResponseEntity.ok(studentService.listStudents());
 	}
 
 }

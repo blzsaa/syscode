@@ -3,7 +3,9 @@ package hu.blzsaa.syscodeprofileservice.student;
 import hu.blzsaa.syscodeprofileservice.model.Student;
 import hu.blzsaa.syscodeprofileservice.model.StudentCreateDto;
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -29,6 +31,10 @@ class StudentService {
 
 	public void deleteStudent(UUID studentId) {
 		studentRepository.deleteById(studentId);
+	}
+
+	public List<Student> listStudents() {
+		return studentRepository.findAll().stream().map(studentMapper::map).toList();
 	}
 
 }

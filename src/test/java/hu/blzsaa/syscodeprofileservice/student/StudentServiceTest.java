@@ -1,13 +1,16 @@
 package hu.blzsaa.syscodeprofileservice.student;
 
 import static hu.blzsaa.syscodeprofileservice.student.TestUtils.STUDENT;
+import static hu.blzsaa.syscodeprofileservice.student.TestUtils.STUDENT_2;
 import static hu.blzsaa.syscodeprofileservice.student.TestUtils.STUDENT_CREATE_DTO;
 import static hu.blzsaa.syscodeprofileservice.student.TestUtils.STUDENT_ENTITY;
+import static hu.blzsaa.syscodeprofileservice.student.TestUtils.STUDENT_ENTITY_2;
 import static hu.blzsaa.syscodeprofileservice.student.TestUtils.STUDENT_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
+import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -65,6 +68,20 @@ class StudentServiceTest {
 
 		// then
 		verify(repository).deleteById(STUDENT_ID);
+	}
+
+	@Test
+	void listStudentsShouldCallRepositoryAndMapTheResultToStudent() {
+		// given
+		doReturn(STUDENT).when(studentMapper).map(STUDENT_ENTITY);
+		doReturn(STUDENT_2).when(studentMapper).map(STUDENT_ENTITY_2);
+		doReturn(List.of(STUDENT_ENTITY, STUDENT_ENTITY_2)).when(repository).findAll();
+
+		// when
+		var actual = underTest.listStudents();
+
+		// then
+		assertThat(actual).containsOnly(STUDENT, STUDENT_2);
 	}
 
 }
