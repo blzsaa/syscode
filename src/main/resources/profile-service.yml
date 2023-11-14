@@ -116,6 +116,7 @@ components:
           type: string
         emailAddress:
           type: string
+          pattern: '^[^@]+@[^@]+\.[^@]+$'
     Student:
       type: object
       required:
@@ -130,6 +131,7 @@ components:
           type: string
         emailAddress:
           type: string
+          pattern: '^[^@]+@[^@]+\.[^@]+$'
     Students:
       type: array
       maxItems: 100
