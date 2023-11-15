@@ -25,6 +25,10 @@
     <artifactId>spring-boot-starter-web</artifactId>
   </dependency>
   <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-webflux</artifactId>
+  </dependency>
+  <dependency>
     <groupId>org.liquibase</groupId>
     <artifactId>liquibase-core</artifactId>
   </dependency>
@@ -70,6 +74,12 @@
     <version>5.3.2</version>
     <scope>test</scope>
   </dependency>
+  <dependency>
+    <groupId>org.wiremock</groupId>
+    <artifactId>wiremock</artifactId>
+    <version>3.3.1</version>
+    <scope>test</scope>
+  </dependency>
 </dependencies>
 
 <build>
@@ -113,6 +123,28 @@
               <useSpringBoot3>true</useSpringBoot3>
             </configOptions>
           </configuration>
+        </execution>
+        <execution>
+          <id>generate-client</id>
+          <goals>
+            <goal>generate</goal>
+          </goals>
+          <configuration>
+            <inputSpec>
+              ${project.parent.basedir}/address-service/src/main/resources/address-service.yml
+            </inputSpec>
+            <generatorName>java</generatorName>
+            <library>webclient</library>
+            <apiPackage>hu.blzsaa.profileservice.client.api</apiPackage>
+            <modelPackage>hu.blzsaa.profileservice.client.model</modelPackage>
+            <generateApiTests>false</generateApiTests>
+            <generateModelTests>false</generateModelTests>
+            <ignoreFileOverride>.openapi-generator-ignore</ignoreFileOverride>
+            <configOptions>
+              <useJakartaEe>true</useJakartaEe>
+            </configOptions>
+          </configuration>
+
         </execution>
       </executions>
     </plugin>
