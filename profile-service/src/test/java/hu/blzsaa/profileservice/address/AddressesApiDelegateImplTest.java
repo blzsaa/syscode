@@ -3,24 +3,25 @@ package hu.blzsaa.profileservice.address;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
 
-import hu.blzsaa.profileservice.client.model.Address;
+import hu.blzsaa.profileservice.model.Address;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.ResponseEntity;
 
-class AddressControllerTest {
+class AddressesApiDelegateImplTest {
 
 	@Mock
 	private AddressService addressesService;
 
-	private AddressController underTest;
+	private AddressesApiDelegateImpl underTest;
 
 	@BeforeEach
 	void setUp() {
 		MockitoAnnotations.openMocks(this);
-		underTest = new AddressController(addressesService);
+		underTest = new AddressesApiDelegateImpl(addressesService);
 	}
 
 	@Test
@@ -33,7 +34,7 @@ class AddressControllerTest {
 		var actual = underTest.getAddressById(uuid);
 
 		// then
-		assertThat(actual).isEqualTo(new Address().address("Asd street"));
+		assertThat(actual).isEqualTo(ResponseEntity.ok(new Address().address("Asd street")));
 	}
 
 }

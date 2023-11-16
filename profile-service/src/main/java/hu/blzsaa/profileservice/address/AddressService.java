@@ -1,7 +1,7 @@
 package hu.blzsaa.profileservice.address;
 
 import hu.blzsaa.profileservice.client.api.AddressesApi;
-import hu.blzsaa.profileservice.client.model.Address;
+import hu.blzsaa.profileservice.model.Address;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

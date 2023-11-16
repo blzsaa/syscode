@@ -1,6 +1,6 @@
 package hu.blzsaa.profileservice.student;
 
-import hu.blzsaa.profileservice.api.StudentsApiDelegate;
+import hu.blzsaa.profileservice.server.api.StudentsApiDelegate;
 import hu.blzsaa.profileservice.model.Student;
 import hu.blzsaa.profileservice.model.StudentCreateDto;
 import java.net.URI;
