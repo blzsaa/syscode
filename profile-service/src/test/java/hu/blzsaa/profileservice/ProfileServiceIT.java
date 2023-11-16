@@ -9,6 +9,7 @@ import hu.blzsaa.profileservice.student.StudentRepository;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import java.util.UUID;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -47,6 +48,15 @@ class ProfileServiceIT {
 	}
 
 	@Test
+	void getStudentByIdShouldReturnWith404ProblemWhenStudentWasNotFound() {
+		RestAssured.get("/students/{studentId}", "728b9758-51a3-434e-b5d7-154216658aa9")
+			.then()
+			.body("title", is("Student Not Found"))
+			.body("detail", is("student cannot be found with id: 728b9758-51a3-434e-b5d7-154216658aa9"))
+			.statusCode(404);
+	}
+
+	@Test
 	void createStudentShouldSaveToDb() {
 		Response createStudentResponse = RestAssured.given().contentType(ContentType.JSON).body("""
 				{"name":"student-name2", "emailAddress":"email.address2@domain.com"}
@@ -75,7 +85,16 @@ class ProfileServiceIT {
 		RestAssured.delete(location).then().statusCode(204);
 
 		// then
-		RestAssured.get(location).then().statusCode(500);
+		RestAssured.get(location).then().statusCode(404);
+	}
+
+	@Test
+	void deleteStudentByIdShouldReturnWith404ProblemWhenStudentWasNotFound() {
+		RestAssured.delete("/students/{studentId}", "728b9758-51a3-434e-b5d7-154216658aa9")
+			.then()
+			.body("title", is("Student Not Found"))
+			.body("detail", is("student cannot be found with id: 728b9758-51a3-434e-b5d7-154216658aa9"))
+			.statusCode(404);
 	}
 
 	@Test
@@ -118,6 +137,20 @@ class ProfileServiceIT {
 			.body("id", Matchers.notNullValue())
 			.body("emailAddress", is("email.address3@domain.com"))
 			.statusCode(200);
+	}
+
+	@Test
+	void updateStudentShouldReturnWith404ProblemWhenStudentWasNotFound() {
+		RestAssured.given()
+			.contentType(ContentType.JSON)
+			.body("""
+					{"name":"student-name3", "emailAddress":"email.address3@domain.com"}
+					""")
+			.put("/students/{studentId}", "728b9758-51a3-434e-b5d7-154216658aa9")
+			.then()
+			.body("title", is("Student Not Found"))
+			.body("detail", is("student cannot be found with id: 728b9758-51a3-434e-b5d7-154216658aa9"))
+			.statusCode(404);
 	}
 
 	@Test

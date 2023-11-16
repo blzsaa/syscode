@@ -7,6 +7,7 @@ import static hu.blzsaa.profileservice.student.TestUtils.STUDENT_ENTITY;
 import static hu.blzsaa.profileservice.student.TestUtils.STUDENT_ENTITY_2;
 import static hu.blzsaa.profileservice.student.TestUtils.STUDENT_ID;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
@@ -47,6 +48,19 @@ class StudentServiceTest {
 	}
 
 	@Test
+	void getStudentByIdShouldThrowStudentNotFoundExceptionWhenThereIsNoStudentForUuid() {
+		// given
+		doReturn(Optional.empty()).when(repository).findById(STUDENT_ID);
+
+		// when
+		var actual = catchThrowable(() -> underTest.getStudentById(STUDENT_ID));
+
+		// then
+		assertThat(actual).isInstanceOf(StudentNotFoundException.class)
+			.hasMessage("student cannot be found with id: " + STUDENT_ID);
+	}
+
+	@Test
 	void createStudentShouldSaveToDbAndReturnWithSavedValueAsDto() {
 		// given
 		doReturn(STUDENT_ENTITY).when(studentMapper).mapCreateDtoToEntity(STUDENT_CREATE_DTO);
@@ -62,12 +76,28 @@ class StudentServiceTest {
 	}
 
 	@Test
-	void deleteStudentShouldDeleteFromDb() {
+	void deleteStudentShouldThrowStudentNotFoundExceptionWhenThereIsNoStudentForUuidb() {
+		// given
+		doReturn(true).when(repository).existsById(STUDENT_ID);
+
 		// when
 		underTest.deleteStudent(STUDENT_ID);
 
 		// then
 		verify(repository).deleteById(STUDENT_ID);
+	}
+
+	@Test
+	void deleteStudentShouldDeleteFromDb() {
+		// given
+		doReturn(false).when(repository).existsById(STUDENT_ID);
+
+		// when
+		var actual = catchThrowable(() -> underTest.deleteStudent(STUDENT_ID));
+
+		// then
+		assertThat(actual).isInstanceOf(StudentNotFoundException.class)
+			.hasMessage("student cannot be found with id: " + STUDENT_ID);
 	}
 
 	@Test
@@ -87,6 +117,7 @@ class StudentServiceTest {
 	@Test
 	void updateStudentShouldSaveToDbTheNewValueAndReturnWithSavedValueAsDto() {
 		// given
+		doReturn(true).when(repository).existsById(STUDENT_ID);
 		doReturn(STUDENT_ENTITY).when(studentMapper).mapCreateDtoAndIdToEntity(STUDENT_ID, STUDENT_CREATE_DTO);
 		doReturn(STUDENT_ENTITY).when(repository).save(STUDENT_ENTITY);
 		doReturn(STUDENT).when(studentMapper).mapEntityToDto(STUDENT_ENTITY);
@@ -97,6 +128,19 @@ class StudentServiceTest {
 		// then
 		assertThat(actual).isEqualTo(STUDENT);
 		verify(repository).save(STUDENT_ENTITY);
+	}
+
+	@Test
+	void updateStudentShouldThrowStudentNotFoundExceptionWhenThereIsNoStudentForUuidb() {
+		// given
+		doReturn(false).when(repository).existsById(STUDENT_ID);
+
+		// when
+		var actual = catchThrowable(() -> underTest.updateStudent(STUDENT_ID, STUDENT_CREATE_DTO));
+
+		// then
+		assertThat(actual).isInstanceOf(StudentNotFoundException.class)
+			.hasMessage("student cannot be found with id: " + STUDENT_ID);
 	}
 
 }

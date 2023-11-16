@@ -55,4 +55,20 @@ class AddressServiceIT {
 			.statusCode(200);
 	}
 
+	@Test
+	void callingForAddressShouldReturnWithProblemDetailIfAnExceptionOccurs() {
+		UUID uuid = UUID.fromString("71264f93-349b-4924-a750-e61df1dc2a00");
+
+		ADDRESS_SERVICE_MOCK.stubFor(WireMock.get(urlPathEqualTo("/addresses/" + uuid))
+			.withBasicAuth("admin", "admin")
+			.willReturn(WireMock.forbidden()));
+
+		RestAssured.get("/addresses/{addressId}", uuid)
+			.then()
+			.body("title", is("Forbidden"))
+			.body("detail", is("403 Forbidden: [no body]"))
+			.body("instance", is("/addresses/71264f93-349b-4924-a750-e61df1dc2a00"))
+			.statusCode(403);
+	}
+
 }

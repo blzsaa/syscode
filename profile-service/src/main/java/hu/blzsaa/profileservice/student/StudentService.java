@@ -19,7 +19,9 @@ class StudentService {
 	}
 
 	public Student getStudentById(UUID studentId) {
-		return studentRepository.findById(studentId).map(studentMapper::mapEntityToDto).orElseThrow();
+		return studentRepository.findById(studentId)
+			.map(studentMapper::mapEntityToDto)
+			.orElseThrow(() -> new StudentNotFoundException(studentId));
 	}
 
 	public Student createStudent(StudentCreateDto studentCreateDto) {
@@ -28,6 +30,7 @@ class StudentService {
 	}
 
 	public void deleteStudent(UUID studentId) {
+		validateStudentExistWithId(studentId);
 		studentRepository.deleteById(studentId);
 	}
 
@@ -36,9 +39,16 @@ class StudentService {
 	}
 
 	public Student updateStudent(UUID studentId, StudentCreateDto newValues) {
+		validateStudentExistWithId(studentId);
 		StudentEntity toSave = studentMapper.mapCreateDtoAndIdToEntity(studentId, newValues);
 		StudentEntity saved = studentRepository.save(toSave);
 		return studentMapper.mapEntityToDto(saved);
+	}
+
+	private void validateStudentExistWithId(UUID studentId) {
+		if (!studentRepository.existsById(studentId)) {
+			throw new StudentNotFoundException(studentId);
+		}
 	}
 
 }
