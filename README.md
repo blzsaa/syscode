@@ -36,3 +36,16 @@ address
 - REST végponton érkező objektum és a DB enƟtás közöƫ mappelés megoldása (Pl.: ModelMapper, MapStruct, ...)
 - address serviceben legyen basic autenƟkáció
 - Webclient
+
+# MEGOLDÁS
+
+### ELINDITÁS:
+- `./mvnw clean install`
+- `cd address-service`
+- `../mvnw spring-boot:run`
+- `cd profile-service`
+- `../mvnw spring-boot:run`
+
+### HASZNÁLAT:
+- `curl 'http://localhost:8080/addresses/728b9758-51a3-434e-b5d7-154216658aa9'`
+- `curl 'http://localhost:8080/students/'  `
