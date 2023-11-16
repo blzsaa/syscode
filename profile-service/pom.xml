@@ -118,14 +118,14 @@
           </goals>
           <configuration>
             <inputSpec>
-              ${project.basedir}/src/main/resources/profile-service.yml
+              ${project.parent.basedir}/openapi-files/profile-service.yml
             </inputSpec>
             <generatorName>spring</generatorName>
             <apiPackage>hu.blzsaa.profileservice.server.api</apiPackage>
             <modelPackage>hu.blzsaa.profileservice.model</modelPackage>
             <generateApiTests>false</generateApiTests>
             <generateModelTests>false</generateModelTests>
-            <ignoreFileOverride>.openapi-generator-ignore</ignoreFileOverride>
+            <ignoreFileOverride>${project.parent.basedir}/openapi-files/.openapi-generator-ignore</ignoreFileOverride>
             <configOptions>
               <delegatePattern>true</delegatePattern>
               <useSpringBoot3>true</useSpringBoot3>
@@ -139,7 +139,7 @@
           </goals>
           <configuration>
             <inputSpec>
-              ${project.parent.basedir}/address-service/src/main/resources/address-service.yml
+              ${project.parent.basedir}/openapi-files/address-service.yml
             </inputSpec>
             <generatorName>java</generatorName>
             <library>resttemplate</library>
@@ -147,7 +147,7 @@
             <modelPackage>hu.blzsaa.profileservice.model</modelPackage>
             <generateApiTests>false</generateApiTests>
             <generateModelTests>false</generateModelTests>
-            <ignoreFileOverride>.openapi-generator-ignore</ignoreFileOverride>
+            <ignoreFileOverride>${project.parent.basedir}/openapi-files/.openapi-generator-ignore</ignoreFileOverride>
             <configOptions>
               <useJakartaEe>true</useJakartaEe>
             </configOptions>

@@ -14,6 +14,7 @@
 	<name>syscode-test</name>
 	<packaging>pom</packaging>
 	<modules>
+		<module>openapi-files</module>
 		<module>address-service</module>
 		<module>profile-service</module>
 	</modules>
