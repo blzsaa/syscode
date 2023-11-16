@@ -3,8 +3,10 @@ package hu.blzsaa.profileservice.address;
 import hu.blzsaa.profileservice.client.api.AddressesApi;
 import hu.blzsaa.profileservice.client.model.Address;
 import java.util.UUID;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class AddressService {
 
@@ -15,7 +17,10 @@ public class AddressService {
 	}
 
 	public Address getAddressById(UUID addressId) {
-		return addressesApi.getAddressById(addressId).block();
+		log.info("Sending getAddressById request to address-service with id: {}", addressId);
+		Address address = addressesApi.getAddressById(addressId);
+		log.info("Address-service returned with address: {}", address);
+		return address;
 	}
 
 }

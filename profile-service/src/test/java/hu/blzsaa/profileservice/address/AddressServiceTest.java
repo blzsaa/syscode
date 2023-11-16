@@ -10,7 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import reactor.core.publisher.Mono;
 
 class AddressServiceTest {
 
@@ -29,7 +28,7 @@ class AddressServiceTest {
 	void getAddressByIdShouldCallApiAndBlock() {
 		// given
 		UUID uuid = UUID.randomUUID();
-		doReturn(Mono.just(new Address().address("Asd street"))).when(addressesApi).getAddressById(uuid);
+		doReturn(new Address().address("Asd street")).when(addressesApi).getAddressById(uuid);
 
 		// when
 		var actual = underTest.getAddressById(uuid);

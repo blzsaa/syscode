@@ -25,10 +25,6 @@
     <artifactId>spring-boot-starter-web</artifactId>
   </dependency>
   <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-webflux</artifactId>
-  </dependency>
-  <dependency>
     <groupId>org.liquibase</groupId>
     <artifactId>liquibase-core</artifactId>
   </dependency>
@@ -50,6 +46,18 @@
     <groupId>org.mapstruct</groupId>
     <artifactId>mapstruct</artifactId>
     <version>${org.mapstruct.version}</version>
+  </dependency>
+  <dependency>
+    <groupId>io.micrometer</groupId>
+    <artifactId>micrometer-tracing</artifactId>
+  </dependency>
+  <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+  </dependency>
+  <dependency>
+    <groupId>io.micrometer</groupId>
+    <artifactId>micrometer-tracing-bridge-brave</artifactId>
   </dependency>
 
   <dependency>
@@ -134,7 +142,7 @@
               ${project.parent.basedir}/address-service/src/main/resources/address-service.yml
             </inputSpec>
             <generatorName>java</generatorName>
-            <library>webclient</library>
+            <library>resttemplate</library>
             <apiPackage>hu.blzsaa.profileservice.client.api</apiPackage>
             <modelPackage>hu.blzsaa.profileservice.client.model</modelPackage>
             <generateApiTests>false</generateApiTests>
